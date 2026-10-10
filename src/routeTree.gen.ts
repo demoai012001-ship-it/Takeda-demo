@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CommandCenterRouteImport } from './routes/command-center'
+import { Route as EmergingRouteImport } from './routes/emerging'
+import { Route as EngineRouteImport } from './routes/engine'
+import { Route as ExplorerRouteImport } from './routes/explorer'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
+import { Route as RecommendationsRouteImport } from './routes/recommendations'
+import { Route as SignalsRouteImport } from './routes/signals'
+import { Route as HcpIdRouteImport } from './routes/hcp.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CommandCenterRoute = CommandCenterRouteImport.update({
+  id: '/command-center',
+  path: '/command-center',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmergingRoute = EmergingRouteImport.update({
+  id: '/emerging',
+  path: '/emerging',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EngineRoute = EngineRouteImport.update({
+  id: '/engine',
+  path: '/engine',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExplorerRoute = ExplorerRouteImport.update({
+  id: '/explorer',
+  path: '/explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecommendationsRoute = RecommendationsRouteImport.update({
+  id: '/recommendations',
+  path: '/recommendations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignalsRoute = SignalsRouteImport.update({
+  id: '/signals',
+  path: '/signals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HcpIdRoute = HcpIdRouteImport.update({
+  id: '/hcp/$id',
+  path: '/hcp/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/command-center': typeof CommandCenterRoute
+  '/emerging': typeof EmergingRoute
+  '/engine': typeof EngineRoute
+  '/explorer': typeof ExplorerRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/recommendations': typeof RecommendationsRoute
+  '/signals': typeof SignalsRoute
+  '/hcp/$id': typeof HcpIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/command-center': typeof CommandCenterRoute
+  '/emerging': typeof EmergingRoute
+  '/engine': typeof EngineRoute
+  '/explorer': typeof ExplorerRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/recommendations': typeof RecommendationsRoute
+  '/signals': typeof SignalsRoute
+  '/hcp/$id': typeof HcpIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/command-center': typeof CommandCenterRoute
+  '/emerging': typeof EmergingRoute
+  '/engine': typeof EngineRoute
+  '/explorer': typeof ExplorerRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/recommendations': typeof RecommendationsRoute
+  '/signals': typeof SignalsRoute
+  '/hcp/$id': typeof HcpIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/command-center'
+    | '/emerging'
+    | '/engine'
+    | '/explorer'
+    | '/leaderboard'
+    | '/recommendations'
+    | '/signals'
+    | '/hcp/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/command-center'
+    | '/emerging'
+    | '/engine'
+    | '/explorer'
+    | '/leaderboard'
+    | '/recommendations'
+    | '/signals'
+    | '/hcp/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/command-center'
+    | '/emerging'
+    | '/engine'
+    | '/explorer'
+    | '/leaderboard'
+    | '/recommendations'
+    | '/signals'
+    | '/hcp/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CommandCenterRoute: typeof CommandCenterRoute
+  EmergingRoute: typeof EmergingRoute
+  EngineRoute: typeof EngineRoute
+  ExplorerRoute: typeof ExplorerRoute
+  LeaderboardRoute: typeof LeaderboardRoute
+  RecommendationsRoute: typeof RecommendationsRoute
+  SignalsRoute: typeof SignalsRoute
+  HcpIdRoute: typeof HcpIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/command-center': {
+      id: '/command-center'
+      path: '/command-center'
+      fullPath: '/command-center'
+      preLoaderRoute: typeof CommandCenterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/emerging': {
+      id: '/emerging'
+      path: '/emerging'
+      fullPath: '/emerging'
+      preLoaderRoute: typeof EmergingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/engine': {
+      id: '/engine'
+      path: '/engine'
+      fullPath: '/engine'
+      preLoaderRoute: typeof EngineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explorer': {
+      id: '/explorer'
+      path: '/explorer'
+      fullPath: '/explorer'
+      preLoaderRoute: typeof ExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recommendations': {
+      id: '/recommendations'
+      path: '/recommendations'
+      fullPath: '/recommendations'
+      preLoaderRoute: typeof RecommendationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signals': {
+      id: '/signals'
+      path: '/signals'
+      fullPath: '/signals'
+      preLoaderRoute: typeof SignalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hcp/$id': {
+      id: '/hcp/$id'
+      path: '/hcp/$id'
+      fullPath: '/hcp/$id'
+      preLoaderRoute: typeof HcpIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CommandCenterRoute: CommandCenterRoute,
+  EmergingRoute: EmergingRoute,
+  EngineRoute: EngineRoute,
+  ExplorerRoute: ExplorerRoute,
+  LeaderboardRoute: LeaderboardRoute,
+  RecommendationsRoute: RecommendationsRoute,
+  SignalsRoute: SignalsRoute,
+  HcpIdRoute: HcpIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
