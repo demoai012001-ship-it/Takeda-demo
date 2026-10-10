@@ -47,6 +47,7 @@ export function ActivityChart({ growth = false }: { growth?: boolean }) {
             }}
           />
           <Area
+            isAnimationActive={false}
             type="monotone"
             dataKey="interactions"
             name={growth ? "Influence growth" : "MSL interactions"}
@@ -55,6 +56,7 @@ export function ActivityChart({ growth = false }: { growth?: boolean }) {
             fill="url(#area-fill)"
           />
           <Area
+            isAnimationActive={false}
             type="monotone"
             dataKey="publications"
             name="Scientific publications"
@@ -94,7 +96,7 @@ export function ScoreChart() {
               borderRadius: 6,
             }}
           />
-          <Bar dataKey="score" name="Engagement score" radius={[3, 3, 0, 0]}>
+          <Bar isAnimationActive={false} dataKey="score" name="Engagement score" radius={[3, 3, 0, 0]}>
             {hcps.slice(0, 15).map((h, i) => (
               <Cell key={h.id} fill={i < 5 ? "var(--primary)" : "var(--chart-soft)"} />
             ))}
