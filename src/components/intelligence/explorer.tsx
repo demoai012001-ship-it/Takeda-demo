@@ -1,7 +1,209 @@
-import { useState } from 'react';
-import { Link } from '@tanstack/react-router';
-import { Search, LayoutGrid, List, ArrowRight, SlidersHorizontal, RotateCcw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { hcps, regions } from '@/lib/demo-data';
-import { Avatar, Badge, Panel, HCPTable, PageHeading, Trend, Footer } from './shared';
-export function Explorer({initial={}}:{initial?:{q?:string;region?:string;priority?:string;specialty?:string}}){const [query,setQuery]=useState(initial.q??'');const [region,setRegion]=useState(initial.region??'');const [priority,setPriority]=useState(initial.priority??'');const [specialty,setSpecialty]=useState(initial.specialty??'');const [institution,setInstitution]=useState('');const [score,setScore]=useState('0');const [publications,setPublications]=useState('0');const [trials,setTrials]=useState(false);const [list,setList]=useState(false);const rows=hcps.filter(h=>(h.name+' '+h.institution).toLowerCase().includes(query.toLowerCase())&&(!region||h.region===region)&&(!priority||h.priority===priority)&&(!specialty||h.specialty===specialty)&&(!institution||h.institution===institution)&&h.score>=Number(score)&&h.publications>=Number(publications)&&(!trials||h.trials>=5));return <main className="content"><PageHeading title="HCP explorer" description="Discover the scientific voices that matter. Build meaningful connections."/><div className="toolbar"><div className="filter-group"><div className="searchbox"><Search/><input aria-label="Search HCP directory" placeholder="Search name or institution" value={query} onChange={e=>setQuery(e.target.value)}/></div><select aria-label="Region" value={region} onChange={e=>setRegion(e.target.value)}><option value="">All regions</option>{regions.map(r=><option key={r.name}>{r.name}</option>)}</select><select aria-label="Specialty" value={specialty} onChange={e=>setSpecialty(e.target.value)}><option value="">All specialties</option>{['IBD Specialist','Gastroenterology','Clinical Research'].map(s=><option key={s}>{s}</option>)}</select><select aria-label="Priority" value={priority} onChange={e=>setPriority(e.target.value)}><option value="">All priorities</option>{['High','Medium','Low'].map(p=><option key={p}>{p}</option>)}</select></div><div className="view-switch"><Button variant={list?'outline':'secondary'} onClick={()=>setList(false)} aria-label="Card view"><LayoutGrid/></Button><Button variant={list?'secondary':'outline'} onClick={()=>setList(true)} aria-label="List view"><List/></Button></div></div><div className="toolbar"><div className="filter-group"><SlidersHorizontal size={14}/><select aria-label="Institution" value={institution} onChange={e=>setInstitution(e.target.value)}><option value="">All institutions</option>{hcps.map(h=><option key={h.id}>{h.institution}</option>)}</select><select aria-label="Minimum engagement score" value={score} onChange={e=>setScore(e.target.value)}><option value="0">Any engagement score</option><option value="8">Score 8+</option><option value="9">Score 9+</option></select><select aria-label="Minimum publications" value={publications} onChange={e=>setPublications(e.target.value)}><option value="0">Any publication count</option><option value="10">10+ publications</option><option value="20">20+ publications</option></select><label className="flex items-center gap-2 text-xs"><input type="checkbox" checked={trials} onChange={e=>setTrials(e.target.checked)}/>5+ clinical trials</label><Button variant="ghost" size="sm" onClick={()=>{setQuery('');setPriority('');setRegion('');setSpecialty('');setInstitution('');setScore('0');setPublications('0');setTrials(false)}}><RotateCcw/>Reset</Button></div></div><div className="list-header"><strong>{rows.length} physicians</strong><span className="text-muted-foreground">Ranked by scientific engagement score</span></div>{list?<Panel title="Physician directory"><div className="h-4"/><HCPTable rows={rows}/></Panel>:<div className="hcp-grid">{rows.map(h=><article className="panel hcp-card" key={h.id}><div className="hcp-card-top"><Avatar hcp={h}/><div><h3>{h.name}</h3><p>{h.institution}</p><p>{h.specialty}</p></div></div><div className="flex items-center justify-between mb-4"><Badge priority={h.priority}/><span className="text-xs text-muted-foreground">Rank #{h.rank} · {h.region}</span></div><div className="hcp-metrics"><div><span>Alignment score</span><strong>{h.alignment}<small className="text-xs text-muted-foreground"> /100</small></strong></div><div><span>Engagement score</span><strong className="text-primary">{h.score}<small className="text-xs text-muted-foreground"> /10</small></strong></div></div><div className="flex items-center justify-between"><Trend value={h.growth}/><Button variant="link" size="sm" asChild><Link to="/hcp/$id" params={{id:h.id}}>View profile<ArrowRight/></Link></Button></div></article>)}</div>}{!list&&rows.length===0&&<div className="empty-state">No physicians match your filters.</div>}<Footer/></main>}
+import { useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { Search, LayoutGrid, List, ArrowRight, SlidersHorizontal, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { hcps, regions } from "@/lib/demo-data";
+import { Avatar, Badge, Panel, HCPTable, PageHeading, Trend, Footer } from "./shared";
+export function Explorer({
+  initial = {},
+}: {
+  initial?: { q?: string; region?: string; priority?: string; specialty?: string };
+}) {
+  const [query, setQuery] = useState(initial.q ?? "");
+  const [region, setRegion] = useState(initial.region ?? "");
+  const [priority, setPriority] = useState(initial.priority ?? "");
+  const [specialty, setSpecialty] = useState(initial.specialty ?? "");
+  const [institution, setInstitution] = useState("");
+  const [score, setScore] = useState("0");
+  const [publications, setPublications] = useState("0");
+  const [trials, setTrials] = useState(false);
+  const [list, setList] = useState(false);
+  const rows = hcps.filter(
+    (h) =>
+      (h.name + " " + h.institution).toLowerCase().includes(query.toLowerCase()) &&
+      (!region || h.region === region) &&
+      (!priority || h.priority === priority) &&
+      (!specialty || h.specialty === specialty) &&
+      (!institution || h.institution === institution) &&
+      h.score >= Number(score) &&
+      h.publications >= Number(publications) &&
+      (!trials || h.trials >= 5),
+  );
+  return (
+    <main className="content">
+      <PageHeading
+        title="HCP explorer"
+        description="Discover the scientific voices that matter. Build meaningful connections."
+      />
+      <div className="toolbar">
+        <div className="filter-group">
+          <div className="searchbox">
+            <Search />
+            <input
+              aria-label="Search HCP directory"
+              placeholder="Search name or institution"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+          <select aria-label="Region" value={region} onChange={(e) => setRegion(e.target.value)}>
+            <option value="">All regions</option>
+            {regions.map((r) => (
+              <option key={r.name}>{r.name}</option>
+            ))}
+          </select>
+          <select
+            aria-label="Specialty"
+            value={specialty}
+            onChange={(e) => setSpecialty(e.target.value)}
+          >
+            <option value="">All specialties</option>
+            {["IBD Specialist", "Gastroenterology", "Clinical Research"].map((s) => (
+              <option key={s}>{s}</option>
+            ))}
+          </select>
+          <select
+            aria-label="Priority"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+          >
+            <option value="">All priorities</option>
+            {["High", "Medium", "Low"].map((p) => (
+              <option key={p}>{p}</option>
+            ))}
+          </select>
+        </div>
+        <div className="view-switch">
+          <Button
+            variant={list ? "outline" : "secondary"}
+            onClick={() => setList(false)}
+            aria-label="Card view"
+          >
+            <LayoutGrid />
+          </Button>
+          <Button
+            variant={list ? "secondary" : "outline"}
+            onClick={() => setList(true)}
+            aria-label="List view"
+          >
+            <List />
+          </Button>
+        </div>
+      </div>
+      <div className="toolbar">
+        <div className="filter-group">
+          <SlidersHorizontal size={14} />
+          <select
+            aria-label="Institution"
+            value={institution}
+            onChange={(e) => setInstitution(e.target.value)}
+          >
+            <option value="">All institutions</option>
+            {hcps.map((h) => (
+              <option key={h.id}>{h.institution}</option>
+            ))}
+          </select>
+          <select
+            aria-label="Minimum engagement score"
+            value={score}
+            onChange={(e) => setScore(e.target.value)}
+          >
+            <option value="0">Any engagement score</option>
+            <option value="8">Score 8+</option>
+            <option value="9">Score 9+</option>
+          </select>
+          <select
+            aria-label="Minimum publications"
+            value={publications}
+            onChange={(e) => setPublications(e.target.value)}
+          >
+            <option value="0">Any publication count</option>
+            <option value="10">10+ publications</option>
+            <option value="20">20+ publications</option>
+          </select>
+          <label className="flex items-center gap-2 text-xs">
+            <input type="checkbox" checked={trials} onChange={(e) => setTrials(e.target.checked)} />
+            5+ clinical trials
+          </label>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              setQuery("");
+              setPriority("");
+              setRegion("");
+              setSpecialty("");
+              setInstitution("");
+              setScore("0");
+              setPublications("0");
+              setTrials(false);
+            }}
+          >
+            <RotateCcw />
+            Reset
+          </Button>
+        </div>
+      </div>
+      <div className="list-header">
+        <strong>{rows.length} physicians</strong>
+        <span className="text-muted-foreground">Ranked by scientific engagement score</span>
+      </div>
+      {list ? (
+        <Panel title="Physician directory">
+          <div className="h-4" />
+          <HCPTable rows={rows} />
+        </Panel>
+      ) : (
+        <div className="hcp-grid">
+          {rows.map((h) => (
+            <article className="panel hcp-card" key={h.id}>
+              <div className="hcp-card-top">
+                <Avatar hcp={h} />
+                <div>
+                  <h3>{h.name}</h3>
+                  <p>{h.institution}</p>
+                  <p>{h.specialty}</p>
+                </div>
+              </div>
+              <div className="flex items-center justify-between mb-4">
+                <Badge priority={h.priority} />
+                <span className="text-xs text-muted-foreground">
+                  Rank #{h.rank} · {h.region}
+                </span>
+              </div>
+              <div className="hcp-metrics">
+                <div>
+                  <span>Alignment score</span>
+                  <strong>
+                    {h.alignment}
+                    <small className="text-xs text-muted-foreground"> /100</small>
+                  </strong>
+                </div>
+                <div>
+                  <span>Engagement score</span>
+                  <strong className="text-primary">
+                    {h.score}
+                    <small className="text-xs text-muted-foreground"> /10</small>
+                  </strong>
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <Trend value={h.growth} />
+                <Button variant="link" size="sm" asChild>
+                  <Link to="/hcp/$id" params={{ id: h.id }}>
+                    View profile
+                    <ArrowRight />
+                  </Link>
+                </Button>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+      {!list && rows.length === 0 && (
+        <div className="empty-state">No physicians match your filters.</div>
+      )}
+      <Footer />
+    </main>
+  );
+}
