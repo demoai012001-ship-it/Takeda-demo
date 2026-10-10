@@ -418,18 +418,26 @@ export function Recommendations() {
               <strong className="text-primary">High scientific influence</strong>
             </div>
             {[
-              { name: "MSL discussions", n: 3, score: "1.5" },
-              { name: "New publications", n: 2, score: "2.0" },
-              { name: "Advisory board participation", n: 1, score: "1.0" },
-              { name: "Positive scientific mentions", n: 4, score: "0.5" },
+              { name: "New IBD publications", n: 2, score: "2.0", pct: "20%" },
+              { name: "MSL interactions", n: 3, score: "1.5", pct: "15%" },
+              { name: "Advisory board participation", n: 1, score: "1.0", pct: "10%" },
+              { name: "Scientific mentions", n: 4, score: "0.5", pct: "5%" },
             ].map((s) => (
               <div className="weight-row" key={s.name}>
                 <span>
                   {s.n} {s.name}
                 </span>
-                <strong className="text-success">+{s.score}</strong>
+                <strong className="text-success">
+                  +{s.score} ({s.pct})
+                </strong>
               </div>
             ))}
+            <div className="weight-row" style={{ borderTop: "1px solid var(--border)", marginTop: 8, paddingTop: 10 }}>
+              <span>
+                <strong>Overall increase</strong>
+              </span>
+              <strong className="text-success">+50%</strong>
+            </div>
           </div>
         </Panel>
         <Panel
