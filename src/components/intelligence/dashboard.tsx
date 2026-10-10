@@ -133,7 +133,7 @@ export function Dashboard() {
                     region: scope?.name ?? "",
                     specialty: specialty === "All specialties" ? "" : specialty,
                   }
-                : undefined
+                : {}
             }
             className="kpi"
             key={k.label}
@@ -347,7 +347,7 @@ function RegionHeat({ name, index }: { name: string; index: number }) {
     <>
       <span className="heat-label">{name}</span>
       {Array.from({ length: 6 }, (_, i) => {
-        const n = [62, 78, 54, 86, 92, 98][i] - index * 11;
+        const n = ([62, 78, 54, 86, 92, 98][i] ?? 62) - index * 11;
         return (
           <span
             className={`heat-cell ${n > 79 ? "hot" : n > 55 ? "mid" : ""}`}

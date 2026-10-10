@@ -4,10 +4,10 @@ export const Route = createFileRoute("/explorer")({
   validateSearch: (
     search: Record<string, unknown>,
   ): { q?: string; region?: string; priority?: string; specialty?: string } => ({
-    q: typeof search.q === "string" ? search.q : undefined,
-    region: typeof search.region === "string" ? search.region : undefined,
-    priority: typeof search.priority === "string" ? search.priority : undefined,
-    specialty: typeof search.specialty === "string" ? search.specialty : undefined,
+    q: typeof search['q'] === "string" ? search['q'] : '',
+    region: typeof search['region'] === "string" ? search['region'] : '',
+    priority: typeof search['priority'] === "string" ? search['priority'] : '',
+    specialty: typeof search['specialty'] === "string" ? search['specialty'] : '',
   }),
   head: () => ({
     meta: [

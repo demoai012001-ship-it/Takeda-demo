@@ -146,13 +146,13 @@ export function WorldMap() {
         <path d="m638 253 10-9 8 18-14 12Z" />
       </g>
       <g className="map-dots">
-        {[
+        {([
           [128, 83, 15],
           [350, 78, 13],
           [520, 92, 11],
           [190, 192, 8],
           [402, 116, 7],
-        ].map(([x, y, r], i) => (
+        ] as const).map(([x, y, r], i) => (
           <g key={i}>
             <circle cx={x} cy={y} r={r + 8} fill="var(--primary)" opacity=".08" />
             <circle cx={x} cy={y} r={r} fill="var(--primary)" opacity=".17" />
@@ -164,7 +164,7 @@ export function WorldMap() {
   );
 }
 export function KnowledgeGraph() {
-  const points = [
+  const points: [number, number][] = [
     [260, 140],
     [110, 65],
     [405, 55],
@@ -187,8 +187,8 @@ export function KnowledgeGraph() {
           <line
             x1={x}
             y1={y}
-            x2={points[(i + 2) % points.length][0]}
-            y2={points[(i + 2) % points.length][1]}
+            x2={points[(i + 2) % points.length]?.[0] ?? 260}
+            y2={points[(i + 2) % points.length]?.[1] ?? 140}
             stroke="var(--border)"
             strokeDasharray="4 4"
           />

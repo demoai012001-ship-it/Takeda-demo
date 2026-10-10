@@ -361,6 +361,7 @@ export function Recommendations() {
   const [accepted, setAccepted] = useState<string[]>([]);
   const h = hcps.find((p) => p.id === selected) ?? hcps[0];
   const score = evolvedScore(5, { msl: 3, publications: 2, advisory: 1, mentions: 4 });
+  if (!h) return null;
   return (
     <main className="content">
       <PageHeading
@@ -725,7 +726,7 @@ export function CommandCenter() {
           action={<ShieldAlert size={16} className="text-primary" />}
         >
           <div className="panel-content">
-            {[hcps[8], hcps[12], hcps[18]].map((h, i) => (
+            {hcps.filter((_, i) => [8, 12, 18].includes(i)).map((h, i) => (
               <Link to="/hcp/$id" params={{ id: h.id }} key={h.id} className="opportunity">
                 <Avatar hcp={h} />
                 <div>
