@@ -1,24 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { Dashboard } from "@/components/intelligence/dashboard";
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Executive Dashboard — Takeda IBD Intelligence" },
+      {
+        name: "description",
+        content:
+          "Executive scientific engagement analytics, priority segmentation, physician rankings and AI insights for IBD Medical Affairs.",
+      },
+      { property: "og:title", content: "Executive Dashboard — Takeda IBD Intelligence" },
+      {
+        property: "og:description",
+        content: "A connected executive view of IBD scientific influence and engagement.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Dashboard,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
