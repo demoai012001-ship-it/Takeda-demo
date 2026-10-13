@@ -65,7 +65,7 @@ export function LiveFeed() {
       counter.current += 1;
       const n = counter.current;
       // Bias the story: Dr. Jane Smith gets frequent high-impact signals early.
-      const hcp = n % 3 === 1 ? liveRoster[1]! : liveRoster[Math.floor(r() * liveRoster.length)]!;
+      const hcp = n % 3 === 1 ? liveRoster[0]! : liveRoster[Math.floor(r() * liveRoster.length)]!;
       const sig = n % 3 === 1 ? signalTypes[Math.floor(r() * 4)]! : signalTypes[Math.floor(r() * signalTypes.length)]!;
       const prior = 0;
       const daysAgo = [0, 1, 3, 12, 25, 45][Math.floor(r() * 6)]!;
@@ -163,7 +163,7 @@ export function LiveFeed() {
   const highCount = ranking.filter((h) => priorityFor(scores[h.id]!) === "High").length;
   const totalDelta = events.reduce((s, e) => s + e.delta, 0);
 
-  const jane = liveRoster[1]!;
+  const jane = liveRoster[0]!;
   const janeScore = scores[jane.id]!;
 
   return (
