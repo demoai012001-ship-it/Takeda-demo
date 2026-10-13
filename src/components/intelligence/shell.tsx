@@ -16,6 +16,7 @@ import {
   Menu,
   X,
   ChevronDown,
+  Radio,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { navigation } from "@/lib/demo-data";
@@ -28,6 +29,7 @@ const icons = {
   trophy: Trophy,
   trending: TrendingUp,
   command: PanelsTopLeft,
+  radio: Radio,
 };
 export function AppShell({ children }: { children: React.ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });

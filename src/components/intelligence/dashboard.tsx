@@ -13,6 +13,7 @@ import {
   Activity,
   MoreHorizontal,
   Globe2,
+  Play,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { hcps, regions } from "@/lib/demo-data";
@@ -85,6 +86,11 @@ export function Dashboard() {
         description="A connected view of scientific influence. Smarter engagement. Greater impact."
         engine
       />
+      <Link to="/live-feed" className="live-cta">
+        <span className="live-cta-icon"><Play size={16} /></span>
+        <span><strong>▶ Start Live Feed</strong><small>Stream real-time scientific signals from 7 connected sources</small></span>
+        <ArrowRight size={16} />
+      </Link>
       <div className="toolbar">
         <div className="filter-group">
           <Globe2 size={14} className="text-muted-foreground" />

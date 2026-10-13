@@ -144,6 +144,7 @@ export const signals = [
 export const navigation = [
   { path: "/", label: "Executive dashboard", icon: "dashboard" },
   { path: "/explorer", label: "HCP explorer", icon: "users" },
+  { path: "/live-feed", label: "Live intelligence feed", icon: "radio" },
   { path: "/signals", label: "Engagement signals", icon: "activity" },
   { path: "/engine", label: "AI engagement engine", icon: "brain" },
   { path: "/recommendations", label: "Results & recommendations", icon: "sparkles" },
