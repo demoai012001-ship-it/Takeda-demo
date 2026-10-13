@@ -15,6 +15,7 @@ import { Route as EmergingRouteImport } from './routes/emerging'
 import { Route as EngineRouteImport } from './routes/engine'
 import { Route as ExplorerRouteImport } from './routes/explorer'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
+import { Route as LiveFeedRouteImport } from './routes/live-feed'
 import { Route as RecommendationsRouteImport } from './routes/recommendations'
 import { Route as SignalsRouteImport } from './routes/signals'
 import { Route as HcpIdRouteImport } from './routes/hcp.$id'
@@ -49,6 +50,11 @@ const LeaderboardRoute = LeaderboardRouteImport.update({
   path: '/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LiveFeedRoute = LiveFeedRouteImport.update({
+  id: '/live-feed',
+  path: '/live-feed',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RecommendationsRoute = RecommendationsRouteImport.update({
   id: '/recommendations',
   path: '/recommendations',
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/engine': typeof EngineRoute
   '/explorer': typeof ExplorerRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/live-feed': typeof LiveFeedRoute
   '/recommendations': typeof RecommendationsRoute
   '/signals': typeof SignalsRoute
   '/hcp/$id': typeof HcpIdRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/engine': typeof EngineRoute
   '/explorer': typeof ExplorerRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/live-feed': typeof LiveFeedRoute
   '/recommendations': typeof RecommendationsRoute
   '/signals': typeof SignalsRoute
   '/hcp/$id': typeof HcpIdRoute
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/engine': typeof EngineRoute
   '/explorer': typeof ExplorerRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/live-feed': typeof LiveFeedRoute
   '/recommendations': typeof RecommendationsRoute
   '/signals': typeof SignalsRoute
   '/hcp/$id': typeof HcpIdRoute
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/engine'
     | '/explorer'
     | '/leaderboard'
+    | '/live-feed'
     | '/recommendations'
     | '/signals'
     | '/hcp/$id'
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/engine'
     | '/explorer'
     | '/leaderboard'
+    | '/live-feed'
     | '/recommendations'
     | '/signals'
     | '/hcp/$id'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/engine'
     | '/explorer'
     | '/leaderboard'
+    | '/live-feed'
     | '/recommendations'
     | '/signals'
     | '/hcp/$id'
@@ -142,6 +154,7 @@ export interface RootRouteChildren {
   EngineRoute: typeof EngineRoute
   ExplorerRoute: typeof ExplorerRoute
   LeaderboardRoute: typeof LeaderboardRoute
+  LiveFeedRoute: typeof LiveFeedRoute
   RecommendationsRoute: typeof RecommendationsRoute
   SignalsRoute: typeof SignalsRoute
   HcpIdRoute: typeof HcpIdRoute
@@ -191,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/live-feed': {
+      id: '/live-feed'
+      path: '/live-feed'
+      fullPath: '/live-feed'
+      preLoaderRoute: typeof LiveFeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/recommendations': {
       id: '/recommendations'
       path: '/recommendations'
@@ -222,6 +242,7 @@ const rootRouteChildren: RootRouteChildren = {
   EngineRoute: EngineRoute,
   ExplorerRoute: ExplorerRoute,
   LeaderboardRoute: LeaderboardRoute,
+  LiveFeedRoute: LiveFeedRoute,
   RecommendationsRoute: RecommendationsRoute,
   SignalsRoute: SignalsRoute,
   HcpIdRoute: HcpIdRoute,
