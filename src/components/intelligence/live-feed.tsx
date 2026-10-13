@@ -51,6 +51,8 @@ export function LiveFeed() {
   const counter = useRef(0);
   const scoresRef = useRef(scores);
   scoresRef.current = scores;
+  const eventsRef = useRef<Ev[]>([]);
+  eventsRef.current = events;
 
   const ranking = useMemo(
     () => [...liveRoster].sort((a, b) => (scores[b.id] ?? 0) - (scores[a.id] ?? 0)),
@@ -70,7 +72,8 @@ export function LiveFeed() {
       const prior = 0;
       const daysAgo = [0, 1, 3, 12, 25, 45][Math.floor(r() * 6)]!;
       const recency = recencyMultiplier(daysAgo);
-      setEvents((prev) => {
+      {
+        const prev = eventsRef.current;
         const priorCount = prev.filter((e) => e.hcpId === hcp.id).length + prior;
         const freq = frequencyMultiplier(priorCount);
         const delta = Math.round(sig.points * sig.reliability * recency * freq * 10) / 10;
@@ -115,8 +118,9 @@ export function LiveFeed() {
         if (newAlerts.length) setAlerts((a) => [...newAlerts, ...a].slice(0, 5));
         const all = [ev, ...prev];
         setInsights(copilot(all, next));
-        return all.slice(0, 40);
-      });
+        eventsRef.current = all.slice(0, 40);
+        setEvents(eventsRef.current);
+      }
       timer = setTimeout(tick, 2000 + rand.current() * 3000);
     };
     timer = setTimeout(tick, 600);
@@ -356,7 +360,7 @@ export function LiveFeed() {
               const rank = [...liveRoster].filter((h) => h.id !== jane.id && scores[h.id]! > future).length + 1;
               return (
                 <div key={w.label} className="whatif-item">
-                  <span>If {jane.name.replace("Dr. ", "Dr. ")} {w.label.toLowerCase()}</span>
+                  <span>If {jane.name.replace("Dr. ", "Dr. ")} {w.label.charAt(0).toLowerCase() + w.label.slice(1)}</span>
                   <strong>
                     {janeScore.toFixed(1)} → {future.toFixed(1)}
                   </strong>
